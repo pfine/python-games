@@ -1,5 +1,6 @@
 import turtle
 
+# Window
 win = turtle.Screen()
 win.title("Pong by tutorial")
 win.bgcolor("black")
@@ -32,6 +33,68 @@ ball.color("white")
 ball.penup()
 ball.goto(0, 0)
 
-# Main game log
+
+# This approch not working, becaue function must be w/o params
+#  turtle.onkeypress(fun, key=None)
+#     Parameters:
+#         fun – a function with no arguments or None
+#         key – a string: key (e.g. “a”) or key-symbol (e.g. “space”)
+
+# def paddleUp(paddleObj):
+#     if not isinstance(paddleObj, turtle.Turtle):
+#         print(' >>> ERROR: paddleObj must be turtle.Turtle object type !!!')
+#         return
+#     y = paddleObj.ycor()
+#     y += 20  # add 20px up
+#     paddleObj.sety(y)
+#     print(' >>> LOG: move down')
+
+# def paddleDown(paddleObj):
+#     if not isinstance(paddleObj, turtle.Turtle):
+#         print(' >>> ERROR: paddleObj must be turtle.Turtle object type !!!')
+#         return
+#     y = paddleObj.ycor()
+#     y -= 20  # add 20px up
+#     paddleObj.sety(y)
+#     print(' >>> LOG: move down')
+
+# win.listen()
+# win.onkeypress(paddleUp(paddle_a), "q")
+# win.onkeypress(paddleDown(paddle_a), "a")
+# win.onkeypress(paddleUp(paddle_b), "p")
+# win.onkeypress(paddleDown(paddle_b), "l")
+
+def paddle_a_up():
+    y = paddle_a.ycor()
+    y += 20  # add 20px up
+    paddle_a.sety(y)
+
+
+def paddle_a_down():
+    y = paddle_a.ycor()
+    y -= 20  # add 20px down
+    paddle_a.sety(y)
+
+
+def paddle_b_up():
+    y = paddle_b.ycor()
+    y += 20  # add 20px up
+    paddle_b.sety(y)
+
+
+def paddle_b_down():
+    y = paddle_b.ycor()
+    y -= 20  # add 20px down
+    paddle_b.sety(y)
+
+
+# Keybord bindings
+win.listen()
+win.onkeypress(paddle_a_up, "q")
+win.onkeypress(paddle_a_down, "a")
+win.onkeypress(paddle_b_up, "Up")
+win.onkeypress(paddle_b_down, "Down")
+
+# Main game loop
 while True:
     win.update()
