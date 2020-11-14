@@ -33,8 +33,8 @@ ball.color("white")
 ball.penup()
 ball.goto(0, 0)
 # add movement of the ball delat (change)- 2px at the time
-ball.dx = 1/4
-ball.dy = 1/4
+ball.dx = 0.2
+ball.dy = 0.2
 
 
 # This approch not working, becaue function must be w/o params
@@ -123,3 +123,15 @@ while True:
     if ball.xcor() < -420:
         ball.goto(0, 0)  # back to center
         ball.dx *= -1  # revers direction
+
+    # Paddle and ball collision
+    # Paddle_B - paddle is on 350 and has 20px width and 100px hight
+    if (ball.xcor() > 340 and ball.xcor() < 360) and \
+            (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_b.ycor() - 50):
+        ball.setx(340)
+        ball.dx *= -1
+     # Paddle_A - paddle is on 350 and has 20px width and 100px hight
+    if (ball.xcor() < -340 and ball.xcor() > -360) and \
+            (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() - 50):
+        ball.setx(-340)
+        ball.dx *= -1
