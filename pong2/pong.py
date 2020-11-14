@@ -32,6 +32,9 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
+# add movement of the ball delat (change)- 2px at the time
+ball.dx = 1/4
+ball.dy = 1/4
 
 
 # This approch not working, becaue function must be w/o params
@@ -98,3 +101,25 @@ win.onkeypress(paddle_b_down, "Down")
 # Main game loop
 while True:
     win.update()
+
+    # Move the ball
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    # Border checking
+    # top
+    if ball.ycor() > 280:  # high screen = 300 - ball high = 20px
+        ball.sety(280)
+        ball.dy *= -1  # change to reverse
+    # bottom
+    if ball.ycor() < -280:  # high screen = -300 - ball high = 20px
+        ball.sety(-280)
+        ball.dy *= -1  # change to reverse
+    # right
+    if ball.xcor() > 420:
+        ball.goto(0, 0)  # back to center
+        ball.dx *= -1  # revers direction
+    # left
+    if ball.xcor() < -420:
+        ball.goto(0, 0)  # back to center
+        ball.dx *= -1  # revers direction
