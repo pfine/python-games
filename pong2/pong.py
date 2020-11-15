@@ -1,4 +1,7 @@
+import os
 import turtle
+
+path2mp3 = "/Users/piotrek/PycharmProjects/python-games/pong2"
 
 # Window
 win = turtle.Screen()
@@ -125,10 +128,12 @@ while True:
     if ball.ycor() > 280:  # high screen = 300 - ball high = 20px
         ball.sety(280)
         ball.dy *= -1  # change to reverse
+        os.system("afplay {}/bounce.mp3 &".format(path2mp3))
     # bottom
     if ball.ycor() < -280:  # high screen = -300 - ball high = 20px
         ball.sety(-280)
         ball.dy *= -1  # change to reverse
+        os.system("afplay {}/bounce.mp3 &".format(path2mp3))
     # right
     if ball.xcor() > 420:
         ball.goto(0, 0)  # back to center
@@ -152,11 +157,13 @@ while True:
             (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_b.ycor() - 50):
         ball.setx(340)
         ball.dx *= -1
+        os.system("afplay {}/bounce.mp3 &".format(path2mp3))
      # Paddle_A - paddle is on 350 and has 20px width and 100px hight
     if (ball.xcor() < -340 and ball.xcor() > -360) and \
             (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() - 50):
         ball.setx(-340)
         ball.dx *= -1
+        os.system("afplay {}/bounce.mp3 &".format(path2mp3))
 
     # Score
     pen.clear()
