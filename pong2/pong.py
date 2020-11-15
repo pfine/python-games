@@ -13,7 +13,7 @@ paddle_a.speed(0)  # set max speed
 paddle_a.shape("square")  # by default 20px per 20px size
 paddle_a.shapesize(stretch_wid=5, stretch_len=1)  # change to 20x100px
 paddle_a.color("white")
-paddle_a.penup()
+paddle_a.penup()  # not draw line between moves
 paddle_a.goto(-350, 0)
 
 #  Paddle B
@@ -22,7 +22,7 @@ paddle_b.speed(0)  # set max speed
 paddle_b.shape("square")  # by default 20px per 20px size
 paddle_b.shapesize(stretch_wid=5, stretch_len=1)  # change to 20x100px
 paddle_b.color("white")
-paddle_b.penup()
+paddle_b.penup()  # not draw line between moves
 paddle_b.goto(350, 0)
 
 # Ball
@@ -30,12 +30,25 @@ ball = turtle.Turtle()
 ball.speed(0)  # set max speed
 ball.shape("square")
 ball.color("white")
-ball.penup()
+ball.penup()  # prevent dwowing line from 0,0
 ball.goto(0, 0)
 # add movement of the ball delat (change)- 2px at the time
-ball.dx = 0.2
-ball.dy = 0.2
+ball.dx = 1/3
+ball.dy = 1/3
 
+# Pen
+pen = turtle.Turtle()
+pen.speed(0)  # animation speed: 0 - max
+pen.color("white")
+pen.penup()  # prevent dwowing line from 0,0
+pen.hideturtle()  # hide , because we not need to see it
+pen.goto(0, 260)
+pen.write("Player A: 0  Player B: 0", align="center",
+          font=("Courier", 24, "normal"))
+
+# Score
+score_a = 0
+score_b = 0
 
 # This approch not working, becaue function must be w/o params
 #  turtle.onkeypress(fun, key=None)
@@ -66,6 +79,7 @@ ball.dy = 0.2
 # win.onkeypress(paddleDown(paddle_a), "a")
 # win.onkeypress(paddleUp(paddle_b), "p")
 # win.onkeypress(paddleDown(paddle_b), "l")
+
 
 def paddle_a_up():
     y = paddle_a.ycor()
@@ -119,10 +133,18 @@ while True:
     if ball.xcor() > 420:
         ball.goto(0, 0)  # back to center
         ball.dx *= -1  # revers direction
+        score_a += 1
+        pen.clear()
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",
+                  font=("Courier", 24, "normal"))
     # left
     if ball.xcor() < -420:
         ball.goto(0, 0)  # back to center
         ball.dx *= -1  # revers direction
+        score_b += 1
+        pen.clear()
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",
+                  font=("Courier", 24, "normal"))
 
     # Paddle and ball collision
     # Paddle_B - paddle is on 350 and has 20px width and 100px hight
@@ -135,3 +157,8 @@ while True:
             (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() - 50):
         ball.setx(-340)
         ball.dx *= -1
+
+    # Score
+    pen.clear()
+    pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",
+              font=("Courier", 24, "normal"))
